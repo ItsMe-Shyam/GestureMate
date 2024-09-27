@@ -47,7 +47,7 @@ function App() {
 
   return (
     <div className="relative w-full min-h-screen bg-black items-center justify-center overflow-x-hidden">
-      <img src="/buildfast.png" width={150} className="fixed top-0 left-0 p-2" loading="lazy"/>
+      <img src="/buildfast.png" width={150} className="fixed top-0 left-0 p-2" loading="lazy" alt="Buil Fast with AI logo"/>
       <QueryFetcher/>
     </div>
   )

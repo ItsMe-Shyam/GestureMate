@@ -2,7 +2,10 @@ import axios from "axios"
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from 'react-markdown';
 import { FaHandSparkles } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import IntractAI from "./IntractAI";
+
 
 function QueryFetcher() {
   const API_KEY = process.env.REACT_APP_API_KEY;
@@ -12,9 +15,19 @@ function QueryFetcher() {
   const [loading,setLoading] = useState(false); // Loading variable to detact the action state of appication
   const responseEndRef = useRef(null); // Reference to the bottom of the responses
 
+  
+  // Function to Generate toast ===============================================================
+  const notify = (msg) => {
+    toast.error(msg , {
+      position: "bottom-center",  // Custom position
+      autoClose: 2000,                         // Close after 5 seconds
+      theme:"dark"
+    });
+  };
 
   // Function to fetch the query from Flask API=================================================
   async function fetchQuery(){
+    setLoading(true);
     try {
       const res = await fetch('/get-query');
       console.log("Call to Flask-API")
@@ -23,8 +36,10 @@ function QueryFetcher() {
       console.log(data)
       setQuery(data.query);  // Store the query in the useState variable
     } catch (error) {
+      notify("Error in hand-recogination")
       console.error("Error fetching the query:", error);
     }
+    setLoading(false);
   };
 
   
@@ -54,6 +69,7 @@ function QueryFetcher() {
         setResponses((prevResponses) => [...prevResponses, newResponse]);
         
       }catch(err){
+        notify("Error in AI request")
         console.log(`Error in axios POST request:\n ${err}`)
       }
       setQuery("");
@@ -90,28 +106,37 @@ function QueryFetcher() {
               <ReactMarkdown>{response}</ReactMarkdown>
             </div>
           ))}
+          {loading &&
+
+            <div className="text-slate-200 text-xl font-semibold text-center p-2">Loading...</div>
+          }
         </div>
 
       {/* Input Bottom Bar */}
       <div className="w-full flex gap-4 px-2 py-2 sm:px-16 md:px-20 lg:px-60 justify-center items-center bg-black border-t-2 border-slate-200 fixed bottom-0">
         
         {/* Taking Query From Hand Gestures using flask API */}
-        <button onClick={fetchQuery} 
-          className="font-semibold text-yellow-500 flex gap-2 bg-slate-900 hover:bg-slate-950 rounded-full items-center p-2   "
+        <button 
+          onClick={() => {
+            if (!loading) {
+              fetchQuery();
+            }
+          }} 
+          className={`font-semibold text-yellow-500 flex gap-2 ${ loading ? "bg-slate-600" : "bg-slate-900 hover:bg-slate-950" } rounded-full items-center p-2`}
           >
           <FaHandSparkles className="text-2xl" />
           <span className="hidden md:block">Use Hand-Gesture</span>
         </button>
 
         {/* Taking Query Input From User in text fromat */}
-        <input type="text" placeholder="Ask any Question!" value={query} onChange={onChangeHandler}
-          className={`p-2 border-2 text-slate-200 border-slate-200 rounded-md  bg-transparent flex-grow ${ loading ? "opacity-50" :"opacity-100"}`}/>
+        <input type="text" placeholder="Ask any Question!" value={query} onChange={onChangeHandler} disabled={loading} 
+          className={`p-2 border-2 text-slate-200 border-slate-200 rounded-md  bg-transparent flex-grow ${ loading ? "cursor-not-allowed opacity-50" :"opacity-100"}`}/>
 
         {/* Button to call function-> make Gemini-API request for response */}
         <button
           onClick={() => {
             if (!loading) {
-              generateAnswer(query);
+              generateAnswer();
             }
           }}
           className={`font-semibold text-yellow-500 flex gap-2 ${ loading ? "bg-slate-600" : "bg-slate-900 hover:bg-slate-950" }  rounded-full items-center py-2 px-4`}        >
@@ -121,7 +146,9 @@ function QueryFetcher() {
 
       {/* Ref to scroll to the end */}
       <div ref={responseEndRef}></div>
-           
+      <div>
+        <ToastContainer />
+      </div>
     </div>
   );
 }
