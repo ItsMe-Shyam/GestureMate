@@ -2,6 +2,7 @@ import axios from "axios"
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from 'react-markdown';
 import { FaHandSparkles } from "react-icons/fa";
+import IntractAI from "./IntractAI";
 
 function QueryFetcher() {
   const API_KEY = process.env.REACT_APP_API_KEY;
@@ -73,26 +74,30 @@ function QueryFetcher() {
   }
 
   return (
-    <div className='min-h-screen flex flex-col gap-6 items-center justify-end pb-16'>
-      <h1 className="text-3xl text-center p-10 font-bold">
-      AI Chat Bot
+    <div className='relative z-10 min-h-screen flex flex-col gap-6 items-center justify-end pb-16'>
+      <h1 className="text-3xl text-center text-slate-200 p-10 font-bold">
+      Gesturemate
       </h1>
+      
+      <div className="fixed -z-10 top-0 bottom-0 left-0 right-0">
+      <IntractAI/>
+      </div>
 
       {/* Responses Container */}
-        <div className="flex flex-col gap-2 px-2 sm:px-16 w-full ">
+        <div className="flex flex-col gap-2 px-2 sm:px-16 md:px-20 lg:px-48 w-full ">
           {responses.map((response, index) => (
-            <div key={index} className="w-full  p-2 border-gray-700 border-2 rounded-md">
+            <div key={index} className="w-full  p-2 border-slate-300 text-slate-200 bg-slate-950 bg-opacity-80 border-2 rounded-md">
               <ReactMarkdown>{response}</ReactMarkdown>
             </div>
           ))}
         </div>
 
       {/* Input Bottom Bar */}
-      <div className="w-full flex gap-4 px-2 py-2 sm:px justify-center items-center bg-slate-300 border-t-2 border-black fixed bottom-0">
+      <div className="w-full flex gap-4 px-2 py-2 sm:px-16 md:px-20 lg:px-60 justify-center items-center bg-black border-t-2 border-slate-200 fixed bottom-0">
         
         {/* Taking Query From Hand Gestures using flask API */}
         <button onClick={fetchQuery} 
-          className="font-semibold text-yellow-500 flex gap-2 bg-black hover:bg-slate-900 rounded-full items-center p-2   "
+          className="font-semibold text-yellow-500 flex gap-2 bg-slate-900 hover:bg-slate-950 rounded-full items-center p-2   "
           >
           <FaHandSparkles className="text-2xl" />
           <span className="hidden md:block">Use Hand-Gesture</span>
@@ -100,7 +105,7 @@ function QueryFetcher() {
 
         {/* Taking Query Input From User in text fromat */}
         <input type="text" placeholder="Ask any Question!" value={query} onChange={onChangeHandler}
-          className="p-2 border-2 border-black rounded-md  bg-transparent flex-grow"/>
+          className={`p-2 border-2 text-slate-200 border-slate-200 rounded-md  bg-transparent flex-grow ${ loading ? "opacity-50" :"opacity-100"}`}/>
 
         {/* Button to call function-> make Gemini-API request for response */}
         <button
@@ -109,7 +114,7 @@ function QueryFetcher() {
               generateAnswer(query);
             }
           }}
-          className={`font-semibold text-yellow-500 flex gap-2 ${ loading ? "bg-slate-600" : "bg-black hover:bg-slate-900" }  rounded-full items-center py-2 px-4`}        >
+          className={`font-semibold text-yellow-500 flex gap-2 ${ loading ? "bg-slate-600" : "bg-slate-900 hover:bg-slate-950" }  rounded-full items-center py-2 px-4`}        >
           Generate
         </button>
       </div>

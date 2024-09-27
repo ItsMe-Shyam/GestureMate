@@ -12,5 +12,3 @@ def get_query():
     # Return the JSON response
     return jsonify({"query": "Who are you?"})
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
