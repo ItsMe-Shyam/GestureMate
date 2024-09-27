@@ -8,7 +8,7 @@ import IntractAI from "./IntractAI";
 
 
 function QueryFetcher() {
-  const API_KEY = process.env.REACT_APP_API_KEY;
+  const API_KEY = process.env.REACT_APP_API_KEY; //Taking API key From environment
 
   const [query, setQuery] = useState("");  // State to store the fetched query
   const [responses, setResponses] = useState([]); // Array to store responses
@@ -16,11 +16,11 @@ function QueryFetcher() {
   const responseEndRef = useRef(null); // Reference to the bottom of the responses
 
   
-  // Function to Generate toast ===============================================================
+  // Function to Generate Error toast ===============================================================
   const notify = (msg) => {
     toast.error(msg , {
-      position: "bottom-center",  // Custom position
-      autoClose: 2000,                         // Close after 5 seconds
+      position: "bottom-center", 
+      autoClose: 2000,            
       theme:"dark"
     });
   };
@@ -56,7 +56,6 @@ function QueryFetcher() {
         const res = await axios({
           method: "post",
           url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
-          // url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDmwtQrvqEEWJmSrs0eRbtJQuQiiGFGeFo",
           data: {
             "contents":[
               {"parts":[{"text":query}]}
@@ -146,6 +145,8 @@ function QueryFetcher() {
 
       {/* Ref to scroll to the end */}
       <div ref={responseEndRef}></div>
+
+      {/* Adding container to show ERROR Toast */}
       <div>
         <ToastContainer />
       </div>
