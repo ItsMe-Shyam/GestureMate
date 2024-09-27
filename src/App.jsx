@@ -1,5 +1,5 @@
 
-import QueryFetcher from "./QueryFetcher";
+import QueryFetcher from "./components/QueryFetcher";
 
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
 
 
   return (
-    <div className="w-screen min-h-screen bg-slate-300 items-center justify-center overflow-x-hidden">
+    <div className="w-full min-h-screen bg-slate-300 items-center justify-center overflow-x-hidden">
       <QueryFetcher/>
     </div>
   )
