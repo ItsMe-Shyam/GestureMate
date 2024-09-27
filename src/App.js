@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+
+import QueryFetcher from "./QueryFetcher";
+
 
 function App() {
+//   const API_KEY = process.env.REACT_APP_API_KEY;
+
+//   const [query,setQuery]=useState("");
+//   const [res,setRes]=useState("Response will display here");
+//   async function generateAnswer(){
+//     console.log(query)
+//     console.log(API_KEY)
+//     if(query!==""){
+//       try{
+//         console.log("calling API...")
+//         const responce = await axios({
+//           method: "post",
+//           url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`,
+//           data: {
+//             "contents":[
+//               {"parts":[{"text":query}]}
+//             ]
+//           }
+//         })
+  
+//         console.log(responce);
+//         setRes(responce.data.candidates[0].content.parts[0].text);
+//         setQuery("");
+//       }catch(err){
+//         console.log(`Error in axios POST request:\n ${err}`)
+//       }
+//       console.log("finish...")
+//     }
+//  }
+
+//  function onChangeHandler(event){
+//   setQuery(event.target.value);
+//  }
+ 
+//  function onKeyEnterHandler(e){
+//   console.log("Key Press DEtected")
+//   if (e.key === 'Enter') {
+//     generateAnswer();  // Call the function when Enter key is pressed
+//   }
+//  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen min-h-screen bg-slate-300 items-center justify-center overflow-x-hidden">
+      <QueryFetcher/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
