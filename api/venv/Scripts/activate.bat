@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\Development\Youtube-Clones\python-web\gesture-mate\api\venv
+set VIRTUAL_ENV=C:\Users\shyam\OneDrive\Documents\Hackathon_project\gesturemate\api\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
