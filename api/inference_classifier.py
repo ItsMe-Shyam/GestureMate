@@ -4,6 +4,7 @@ import mediapipe as mp
 import numpy as np
 import warnings
 
+
 # Suppress specific user warnings regarding deprecated methods in protobuf
 warnings.filterwarnings("ignore", category=UserWarning, message="SymbolDatabase.GetPrototype() is deprecated.")
 

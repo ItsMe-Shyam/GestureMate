@@ -48,6 +48,7 @@ function QueryFetcher() {
   // Function to fetch the answer from Gemini API=================================================
   async function generateAnswer(){
     console.log("Query: ");
+
     
     console.log(query)
 
