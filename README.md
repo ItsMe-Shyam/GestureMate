@@ -1,70 +1,101 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Setup Scripts
 
-## Available Scripts
+## React setup
 
-In the project directory, you can run:
+### `npm i`
+This command will install all required packages for Frontend project
 
+## ADD Gemini API
+
+Create `.env` file in root. In this file ,Add API-KEY as:  
+
+`REACT_APP_API_KEY = Your_API_Key_Here`
+
+
+**Get your api key from Google Ai Studio**  
+
+[Visit : Google AI STUDIO](https://aistudio.google.com/)
+
+---
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode automatically.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
+## Gesture detection model setup
+This project using an virtual environment to run python scripts to run gesture-detection model
 
-### `npm test`
+## Steps to create virtual environment:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ 1. Open the **new terminal** in the root of this project and navigate to the API folder:  
+ `cd api`
 
-### `npm run build`
+1. Install virtual environment of python in this folder
+    
+    `api> python -m venv venv`
+    
+2. Activate the virtual environment:
+    
+    `.\venv\Scripts\Activate`
+    
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ### If this not works, Change execution policy
+    ---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    **Step 1: Check the Current Execution Policy**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    First, check your current execution policy by running the following command in PowerShell:
 
-### `npm run eject`
+    `Get-ExecutionPolicy`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    You will likely see `Restricted`, which means that scripts cannot be run.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    **Step 2: Change the Execution Policy**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    Run the following command **as an Administrator** (open PowerShell as Administrator):
 
-## Learn More
+    `Set-ExecutionPolicy RemoteSigned -Scope CurrentUse`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    **Step 3: Activate the Virtual Environment Again**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Now, try activating your virtual environment again:
 
-### Code Splitting
+    `.\venv\Scripts\Activate`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+    **Step 4: Revert the Execution Policy (Optional)**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    If you want to revert to the original execution policy after you finish your work, you can run:
 
-### Making a Progressive Web App
+    `Set-ExecutionPolicy Restricted -Scope CurrentUser`
+    
+    ---
+4. Install required packages:
+    
+    `pip install flask`
+    
+    `pip install python-dotenv` 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    There are .env or .flaskenv files present. Do "pip install python-dotenv" to use them.
 
-### Advanced Configuration
+    `pip install opencv-python`
+    
+    `pip install mediapipe`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    `pip install sklearn`
 
-### Deployment
+---
+5. Run flask using 
+    
+    `flask run`
+    
+6. Deactivate virtual environment, use Command:
+`deactivate`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+**We are using the Gesture Recognition Model that we trained using sklearn python library.**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

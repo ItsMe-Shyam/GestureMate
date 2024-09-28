@@ -10,9 +10,6 @@ app = Flask(__name__)
 
 @app.route('/get-query', methods=['GET'])
 def get_query():
-    # Simulate a 1-second delay
-    time.sleep(1)
-    # Return the JSON response
     try:
         with open('./model.p', 'rb') as f:
             model_dict = pickle.load(f)
@@ -21,6 +18,8 @@ def get_query():
     except Exception as e:
         print(f"Error loading model: {e}")
         exit()
+    return jsonify({"query": "Who are you?"})
+
 
 # Initialize Video Capture (try different indices if 0 doesn't work)
     cap = cv2.VideoCapture(0)

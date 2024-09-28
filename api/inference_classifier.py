@@ -2,10 +2,9 @@ import pickle
 import cv2
 import mediapipe as mp
 import numpy as np
-# import warnings
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module='google.protobuf.symbol_database')
 
-#  Suppress specific user warnings regarding deprecated methods in protobuf
-# warnings.filterwarnings("ignore", category=UserWarning, message="SymbolDatabase.GetPrototype() is deprecated.")
 
 # Load the pre-trained model
 try:
